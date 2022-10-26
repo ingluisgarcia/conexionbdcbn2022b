@@ -11,9 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,7 +41,6 @@ public class FrmConexionBD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnTest = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -58,24 +54,11 @@ public class FrmConexionBD extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnTest.setText("Test Connection");
-        btnTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTestActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Nombre");
-
-        txtNombre.setText("jTextField1");
 
         jLabel2.setText("Telefono");
 
-        txtTelefono.setText("jTextField2");
-
         jLabel3.setText("Correo");
-
-        txtCorreo.setText("jTextField3");
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -124,9 +107,6 @@ public class FrmConexionBD extends javax.swing.JFrame {
                                     .addComponent(txtTelefono)
                                     .addComponent(txtCorreo)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnTest))
-                            .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(btnGuardar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -141,8 +121,6 @@ public class FrmConexionBD extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnTest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -165,11 +143,6 @@ public class FrmConexionBD extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, test.connectDatabase() );
-    }//GEN-LAST:event_btnTestActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
@@ -218,8 +191,6 @@ public class FrmConexionBD extends javax.swing.JFrame {
     }
     
     public void guardar(){
-        
-        
         try {
             
             Connection connection = DriverManager.getConnection(con.getUrl(), con.getUsername(), con.getPassword());
@@ -239,19 +210,17 @@ public class FrmConexionBD extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Error");
         }
         
-        
     }
     
     public void mostrar() {
-        String consulta = "select * from contacto";
         try {
             DefaultTableModel model = new DefaultTableModel();
             tableDatos.setModel(model);
             
             Connection connection = DriverManager.getConnection(con.getUrl(), con.getUsername(), con.getPassword());
 
-            Statement statement = connection.createStatement();
-            ResultSet ps = statement.executeQuery(consulta);
+            PreparedStatement statement = connection.prepareStatement("select * from contacto");
+            ResultSet ps = statement.executeQuery();
             ResultSetMetaData metaData = ps.getMetaData();
             
             for(int i = 1; i<= metaData.getColumnCount(); i++){
@@ -278,12 +247,9 @@ public class FrmConexionBD extends javax.swing.JFrame {
        
     }
     
-    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMostrar;
-    private javax.swing.JButton btnTest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
