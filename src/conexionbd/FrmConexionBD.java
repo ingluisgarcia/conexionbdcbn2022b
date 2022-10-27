@@ -25,11 +25,9 @@ public class FrmConexionBD extends javax.swing.JFrame {
      */
     
     InfoConexion con;
-    ConexionBD test;
     public FrmConexionBD() {
         initComponents();
         con = new InfoConexion();
-        test = new ConexionBD();
     }
 
     /**
