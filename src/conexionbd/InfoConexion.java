@@ -11,8 +11,8 @@ package conexionbd;
  */
 public class InfoConexion {
     String url = "jdbc:mysql://localhost/prueba";
-    String username="cymaniatico";
-    String password="drakhuntress1210";
+    String username="root";
+    String password="";
 
     public InfoConexion() {
     }
