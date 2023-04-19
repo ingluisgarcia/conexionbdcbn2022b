@@ -191,13 +191,14 @@ public class FrmConexionBD extends javax.swing.JFrame {
     public void guardar(){
         try {
             
-            Connection connection = DriverManager.getConnection(con.getUrl(), con.getUsername(), con.getPassword());
-            PreparedStatement stmt = connection.prepareStatement("insert into contacto (nombre, telefono, correo) values (?, ?, ?)");
+            Connection connection = DriverManager.getConnection(con.getUrl(), 
+                    con.getUsername(), con.getPassword());
+            PreparedStatement stmt = connection.prepareStatement("call ingresardato (?, ?, ?)");
             stmt.setString(1, txtNombre.getText());
             stmt.setString(2, txtTelefono.getText());
             stmt.setString(3, txtCorreo.getText());
             
-            int ps = stmt.executeUpdate();
+            stmt.executeUpdate();
                
             stmt.close();
             connection.close();
@@ -217,7 +218,7 @@ public class FrmConexionBD extends javax.swing.JFrame {
             
             Connection connection = DriverManager.getConnection(con.getUrl(), con.getUsername(), con.getPassword());
 
-            PreparedStatement statement = connection.prepareStatement("select * from contacto");
+            PreparedStatement statement = connection.prepareStatement("call mostrardatos()");
             ResultSet ps = statement.executeQuery();
             ResultSetMetaData metaData = ps.getMetaData();
             
